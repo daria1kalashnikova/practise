@@ -97,6 +97,8 @@ a {
 
 .hero {
   padding-top: 0;
+  height: 2000px;
+  position: relative;
 }
 
 .hero-thumb {
@@ -105,12 +107,28 @@ a {
   background-color: rgb(129, 188, 188);
 }
 
+.hero-thumb-wrapper {
+  position: relative;
+}
+
+.hero-thumb-wrapper p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%);
+}
+
 .hero-container {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
 
+.hero-content-wrapper {
+  position: sticky;
+  top: 0;
+  left: 0;
+}
 .hero-title {
   font-weight: 600;
   font-size: 64px;
@@ -138,5 +156,95 @@ a {
   padding: 23px 64px;
   min-width: 426px;
   height: 100px;
+  position: relative;
+  overflow: hidden;
 }
+
+.hero-button::before,
+.hero-button::after {
+  content: "";
+  width: 100%;
+  height: 4px;
+  background-color: aquamarine;
+  position: absolute;
+  left: 0;
+}
+
+.hero-button::before {
+  top: 0;
+  transform: translateX(-100%);
+}
+
+.hero-button::after {
+  bottom: 0;
+  transform: translateX(100%);
+}
+
+.hero-button:hover::before {
+  animation-name: toRight;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 3;
+}
+
+.hero-button:hover::after {
+  animation-name: toLeft;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 2s;
+  animation-iteration-count: 2;
+}
+
+@keyframes toLeft {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes toRight {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.backdrop {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(38, 50, 56, 0.322);
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 950ms ease-in-out, visibility 950ms ease-in-out;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -150%);
+  width: 400px;
+  min-height: 500px;
+  background-color: #fff;
+  transition: transform 1500ms ease-in-out;
+}
+
+.backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.backdrop.is-open .modal {
+  transform: translate(-50%, -50%);
+}
+
 /* #endregion */
